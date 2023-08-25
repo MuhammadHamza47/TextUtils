@@ -9,10 +9,19 @@ export default function TextForm(props) {
     let newText = text.toLowerCase();
     setText(newText);
   };
+  const handelClearClick = () => {
+    let newText = '';
+    setText(newText);
+  };
   const handelOnChange = (e) => {
     setText(e.target.value);
   };
-  const [text, setText] = useState("Enter text here");
+  const extractEmails = () => {
+    let newText = text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi);
+    setText(newText);
+    };
+    
+  const [text, setText] = useState("");
   return (
     <>
     <div className="container">
@@ -20,8 +29,10 @@ export default function TextForm(props) {
       <div className="mb-3">
         <textarea className="form-control" id="myBox" rows="8" value={text} onChange={handelOnChange}></textarea>
       </div>
-      <button onClick={handelUpClick} className="btn btn-primary">Convert to upper case</button>
-      <button onClick={handelLowClick} className="btn btn-primary">Convert to upper case</button>
+      <button onClick={handelUpClick} className="btn btn-primary mx-2">Convert to upper case</button>
+      <button onClick={handelLowClick} className="btn btn-primary mx-1">Convert to upper case</button>
+      {/* <button onClick={extractEmails} className="btn btn-primary mx-1">Extract email</button> */}
+      <button onClick={handelClearClick} className="btn btn-primary mx-1">Clear</button>
     </div>
     <div className="container my-3">
     <h1>Your text sumery</h1>
